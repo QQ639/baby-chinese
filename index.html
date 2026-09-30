@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<title>อ้อแอ้จีนกลาง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mitr:wght@500;600&family=Noto+Sans+Thai:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one-column learning path — stage tabs (like a baby's milestones) over a single working card area */
+:root{
+  --bg:#F3F6F8; --surface:#FFFFFF; --ink:#1B2A3A; --muted:#5E6E7E; --line:#DCE3EA; --accent:#0F6E6E; --accent-soft:#DDF0EE;
+  --t1:#C8372F; --t2:#C9780F; --t3:#23864D; --t4:#2B62C0; --t5:#7A8793;
+  --f-display:"Mitr","Noto Sans Thai",system-ui,sans-serif;
+  --f-body:"Noto Sans Thai",system-ui,sans-serif;
+  --f-han:"Noto Serif SC","Songti SC","SimSun",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F161D; --surface:#17212B; --ink:#E6EDF3; --muted:#98A7B5; --line:#2A3846; --accent:#4FC2BB; --accent-soft:#16312F;
+  --t1:#FF7A70; --t2:#F2B24E; --t3:#5BCB8A; --t4:#79A6F2; --t5:#98A7B5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F161D; --surface:#17212B; --ink:#E6EDF3; --muted:#98A7B5; --line:#2A3846; --accent:#4FC2BB; --accent-soft:#16312F;
+  --t1:#FF7A70; --t2:#F2B24E; --t3:#5BCB8A; --t4:#79A6F2; --t5:#98A7B5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-family:var(--f-display);font-weight:600;font-size:1.7rem;margin:0;line-height:1.2;text-wrap:balance}
+h1 span{font-family:var(--f-han);color:var(--accent)}
+.sub{color:var(--muted);margin:2px 0 0;font-size:.92rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.85rem;color:var(--muted)}
+.controls label{display:flex;align-items:center;gap:6px}
+input[type=range]{width:110px;accent-color:var(--accent)}
+.switch{display:flex;align-items:center;gap:6px;cursor:pointer}
+input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
+nav.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+nav.stages button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+nav.stages button small{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+nav.stages button b{font-family:var(--f-display);font-weight:500;font-size:.95rem}
+nav.stages button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+nav.stages button[aria-selected="true"] small{color:var(--surface);opacity:.85}
+.intro{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:.92rem}
+.intro b{font-family:var(--f-display);font-weight:500}
+section.panel{display:flex;flex-direction:column;gap:14px}
+.stage-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.pic{font-size:4rem;line-height:1}
+.han{font-family:var(--f-han);font-weight:700;font-size:3.6rem;line-height:1.1;letter-spacing:.04em}
+.han .s{display:inline-block}
+.py{font-family:var(--f-mono);font-size:1.05rem;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.mean{color:var(--muted)}
+.tone1{color:var(--t1)}.tone2{color:var(--t2)}.tone3{color:var(--t3)}.tone4{color:var(--t4)}.tone5{color:var(--t5)}
+body.nopy .py{visibility:hidden}
+body.nocolor .han .s{color:var(--ink)!important}
+.row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.btn{font:inherit;font-family:var(--f-display);font-weight:500;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 16px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn:focus-visible,nav.stages button:focus-visible,.tile:focus-visible{outline:3px solid var(--t4);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.tile{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.tile .e{font-size:1.9rem;line-height:1.2}
+.tile .h{font-family:var(--f-han);font-weight:700;font-size:1.25rem}
+.tile .stars{font-size:.7rem;color:var(--t2);letter-spacing:1px;min-height:1em}
+.tile.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.label{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);align-self:flex-start}
+.tones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%}
+.tonebtn{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:8px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.tonebtn .hz{font-family:var(--f-han);font-weight:700;font-size:1.6rem}
+.tonebtn svg{width:100%;max-width:70px;height:40px}
+.tonebtn small{font-size:.75rem;color:var(--muted)}
+.tonebtn.right{border-color:var(--t3);box-shadow:0 0 0 2px var(--t3) inset}
+.tonebtn.wrong{border-color:var(--t1);box-shadow:0 0 0 2px var(--t1) inset}
+.big-contour{width:100%;max-width:260px;height:120px}
+.score{font-family:var(--f-mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.feedback{min-height:1.5em;font-family:var(--f-display);font-weight:500}
+.feedback.ok{color:var(--t3)}.feedback.no{color:var(--t1)}
+.echo-steps{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.echo-steps span{font-size:.8rem;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.echo-steps span.now{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.warn{background:var(--surface);border:1px solid var(--t1);color:var(--ink);border-radius:12px;padding:10px 14px;font-size:.88rem}
+.phr{display:flex;flex-direction:column;gap:8px}
+.phr button{font:inherit;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;min-width:0}
+.phr .ph{font-family:var(--f-han);font-weight:700;font-size:1.35rem;flex:none}
+.phr .pm{color:var(--muted);font-size:.88rem;min-width:0}
+.phr button.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.btn.mic{border-color:var(--accent);color:var(--accent);font-size:1.05rem;padding:11px 22px}
+.btn.mic.rec{background:var(--t1);border-color:var(--t1);color:var(--surface)}
+@media (prefers-reduced-motion:no-preference){.btn.mic.rec{animation:pulse 1s ease-in-out infinite}@keyframes pulse{50%{opacity:.7}}}
+.micfb{min-height:1.5em;font-size:.92rem;max-width:32rem}
+.micfb b{font-family:var(--f-display);font-weight:500}
+.micfb.ok b{color:var(--t3)}.micfb.near b{color:var(--t2)}.micfb.no b{color:var(--t1)}
+.micfb .heard{font-family:var(--f-han);font-weight:700}
+footer{color:var(--muted);font-size:.8rem;text-align:center}
+@media (max-width:420px){.han{font-size:3rem}nav.stages button b{font-size:.82rem}}
+@media (prefers-reduced-motion:no-preference){.pop{animation:pop .35s ease-out}@keyframes pop{from{transform:scale(.92);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>อ้อแอ้<span>中文</span></h1>
+      <p class="sub">เรียนเสียงจีนกลางแบบทารก: ฟังก่อน เลียนเสียง แล้วค่อยพูดเป็นคำ</p>
+    </div>
+    <div class="controls">
+      <label for="rate">ความเร็ว <input id="rate" type="range" min="0.4" max="1.1" step="0.05" value="0.7"></label>
+      <label class="switch" for="showPy"><input id="showPy" type="checkbox"> พินอิน</label>
+      <label class="switch" for="showColor"><input id="showColor" type="checkbox" checked> สีวรรณยุกต์</label>
+    </div>
+  </header>
+
+  <div id="voiceWarn" class="warn" hidden>เครื่องนี้ยังไม่มีเสียงภาษาจีนสำหรับอ่านออกเสียง ให้เพิ่มเสียง "Chinese (Mandarin)" ในการตั้งค่า Text-to-speech ของโทรศัพท์หรือคอมพิวเตอร์ แล้วเปิดหน้านี้ใหม่</div>
+
+  <nav class="stages" role="tablist">
+    <button role="tab" data-s="0" aria-selected="true"><small>ขั้น 1</small><b>ฟังซึมซับ</b></button>
+    <button role="tab" data-s="1" aria-selected="false"><small>ขั้น 2</small><b>อ้อแอ้</b></button>
+    <button role="tab" data-s="2" aria-selected="false"><small>ขั้น 3</small><b>คำแรก</b></button>
+    <button role="tab" data-s="3" aria-selected="false"><small>ขั้น 4</small><b>วลีสั้น</b></button>
+  </nav>
+
+  <!-- Stage 1 -->
+  <section class="panel" id="p0">
+    <div class="intro"><b>ทารกฟังนานหลายเดือนก่อนพูด</b> ขั้นนี้ยังไม่ต้องพูด ไม่ต้องอ่าน ให้กดเล่นแล้วฟังวนไป ดูภาพคู่กับเสียง ปล่อยให้หูชินกับเสียงสูงต่ำ</div>
+    <div class="row groups" data-for="listen"></div>
+    <div class="stage-card">
+      <div class="pic pop" id="lPic">👩</div>
+      <div class="han" id="lHan"></div>
+      <div class="py" id="lPy"></div>
+      <div class="mean" id="lMean"></div>
+      <div class="row">
+        <button class="btn primary" id="lPlay">▶ เริ่มฟังวน</button>
+        <button class="btn" id="lStop">หยุด</button>
+      </div>
+      <div class="score" id="lCount">ฟังแล้ว 0 รอบ</div>
+    </div>
+  </section>
+
+  <!-- Stage 2 -->
+  <section class="panel" id="p1" hidden>
+    <div class="intro"><b>ทารกอ้อแอ้เล่นเสียงก่อนพูดเป็นคำ</b> จีนกลางมี 4 วรรณยุกต์ พยางค์เดียวกันแต่ขึ้นลงต่างกันก็เป็นคนละคำ กดฟังแต่ละเสียงแล้วลากเสียงตามเส้น จากนั้นลองทายเสียง</div>
+    <div class="row" id="syllSets"></div>
+    <div class="stage-card">
+      <span class="label">ฟังแล้วเลียน</span>
+      <div class="tones" id="toneRow"></div>
+      <svg class="big-contour" id="bigContour" viewBox="0 0 260 120" aria-hidden="true"></svg>
+      <div class="mean" id="toneNote">เลข 5 = เสียงสูงสุด เลข 1 = ต่ำสุด</div>
+    </div>
+    <div class="stage-card">
+      <span class="label">ทายเสียง</span>
+      <div class="row"><button class="btn primary" id="qPlay">▶ ฟังโจทย์</button><button class="btn" id="qNext">ข้อต่อไป</button></div>
+      <div class="tones" id="qTones"></div>
+      <div class="feedback" id="qFb"></div>
+      <div class="score" id="qScore">ถูก 0 / 0</div>
+    </div>
+  </section>
+
+  <!-- Stage 3 -->
+  <section class="panel" id="p2" hidden>
+    <div class="intro"><b>คำแรกของทารกคือคำใกล้ตัว</b> เลือกคำ แล้วกด "เลียนเสียง" แอปจะพูด เว้นให้คุณพูดตาม แล้วพูดซ้ำให้เทียบ ทำได้แล้วให้ดาวตัวเอง · 100 คำ เรียงตามลำดับที่ทารกมักพูดได้ เริ่มจากหมวดแรก</div>
+    <div class="row groups" data-for="words"></div>
+    <div class="score" id="wProg" style="text-align:center"></div>
+    <div class="stage-card">
+      <div class="pic pop" id="wPic"></div>
+      <div class="han" id="wHan"></div>
+      <div class="py" id="wPy"></div>
+      <div class="mean" id="wMean"></div>
+      <div class="echo-steps" id="echoSteps"><span>ฟัง</span><span>พูดตาม</span><span>ฟังเทียบ</span></div>
+      <div class="row">
+        <button class="btn" id="wHear">🔊 ฟัง</button>
+        <button class="btn primary" id="wEcho">เลียนเสียง</button>
+        <button class="btn" id="wStar">⭐ พูดได้แล้ว</button>
+      </div>
+      <button class="btn mic" id="wMic">🎤 พูดแล้วตรวจ</button>
+      <div class="micfb" id="wMicFb"></div>
+    </div>
+    <div class="grid" id="wGrid"></div>
+    <div class="stage-card">
+      <span class="label">ทายภาพจากเสียง</span>
+      <div class="row"><button class="btn primary" id="pPlay">▶ ฟังโจทย์</button><button class="btn" id="pNext">ข้อต่อไป</button></div>
+      <div class="grid" id="pChoices" style="width:100%"></div>
+      <div class="feedback" id="pFb"></div>
+      <div class="score" id="pScore">ถูก 0 / 0</div>
+    </div>
+  </section>
+
+  <!-- Stage 4 -->
+  <section class="panel" id="p3" hidden>
+    <div class="intro"><b>ต่อคำเป็นวลี</b> ทารกเริ่มจากสองคำ เช่น "แม่ กอด" ก่อนเป็นประโยค ฟังทั้งวลีช้าๆ แล้วเลียนตามทีละวลี</div>
+    <div class="stage-card">
+      <div class="pic pop" id="fPic"></div>
+      <div class="han" id="fHan" style="font-size:2.6rem"></div>
+      <div class="py" id="fPy"></div>
+      <div class="mean" id="fMean"></div>
+      <div class="echo-steps" id="echoSteps2"><span>ฟัง</span><span>พูดตาม</span><span>ฟังเทียบ</span></div>
+      <div class="row"><button class="btn" id="fHear">🔊 ฟัง</button><button class="btn primary" id="fEcho">เลียนเสียง</button></div>
+      <button class="btn mic" id="fMic">🎤 พูดแล้วตรวจ</button>
+      <div class="micfb" id="fMicFb"></div>
+    </div>
+    <div class="phr" id="fList"></div>
+  </section>
+
+  <footer>เสียงอ่านมาจากระบบเสียงของเครื่อง ความชัดขึ้นกับเครื่องที่ใช้ · ความคืบหน้าเก็บไว้ในเบราว์เซอร์นี้เท่านั้น</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>
+const TONE_NAME={1:"เสียง 1 สูงเรียบ",2:"เสียง 2 ขึ้น",3:"เสียง 3 ลงแล้วขึ้น",4:"เสียง 4 ตกแรง",5:"เสียงเบา"};
+const CONTOUR={1:[5,5],2:[3,5],3:[2,1,4],4:[5,1]};
+const GROUPS=["ครอบครัว","ความต้องการ","ร่างกาย","สัตว์","อาหาร","ของใช้","ท่าทาง","ความรู้สึก","ทักทาย","ตัวเลข·ธรรมชาติ"];
+const RAW=[
+ // 1 ครอบครัว
+ ["妈妈","mā ma","15","แม่","👩"],["爸爸","bà ba","45","พ่อ","👨"],["宝宝","bǎo bao","35","เบบี้","👶"],["奶奶","nǎi nai","35","ย่า","👵"],["爷爷","yé ye","25","ปู่","👴"],
+ ["姥姥","lǎo lao","35","ยาย","🧓"],["哥哥","gē ge","15","พี่ชาย","👦"],["姐姐","jiě jie","35","พี่สาว","👧"],["弟弟","dì di","45","น้องชาย","🧒"],["妹妹","mèi mei","45","น้องสาว","🎀"],
+ // 2 ความต้องการ
+ ["奶","nǎi","3","นม","🍼"],["水","shuǐ","3","น้ำ","💧"],["吃","chī","1","กิน","🍚"],["喝","hē","1","ดื่ม","🥤"],["抱抱","bào bao","45","กอด","🤗"],
+ ["睡觉","shuì jiào","44","นอน","😴"],["要","yào","4","เอา / อยาก","🫴"],["不要","bú yào","24","ไม่เอา","🙅"],["还要","hái yào","24","เอาอีก","➕"],["饿","è","4","หิว","🍽️"],
+ // 3 ร่างกาย
+ ["手","shǒu","3","มือ","✋"],["脚","jiǎo","3","เท้า","🦶"],["眼睛","yǎn jing","35","ตา","👁️"],["鼻子","bí zi","25","จมูก","👃"],["嘴巴","zuǐ ba","35","ปาก","👄"],
+ ["耳朵","ěr duo","35","หู","👂"],["头","tóu","2","หัว","🙆"],["牙","yá","2","ฟัน","🦷"],["头发","tóu fa","25","ผม","💇"],["肚子","dù zi","45","ท้อง","🫃"],
+ // 4 สัตว์
+ ["狗","gǒu","3","หมา","🐶"],["猫","māo","1","แมว","🐱"],["鱼","yú","2","ปลา","🐟"],["鸟","niǎo","3","นก","🐦"],["鸭子","yā zi","15","เป็ด","🦆"],
+ ["鸡","jī","1","ไก่","🐔"],["猪","zhū","1","หมู","🐷"],["牛","niú","2","วัว","🐮"],["马","mǎ","3","ม้า","🐴"],["兔子","tù zi","45","กระต่าย","🐰"],
+ // 5 อาหาร
+ ["饭","fàn","4","ข้าว","🍚"],["面条","miàn tiáo","42","เส้นบะหมี่","🍜"],["蛋","dàn","4","ไข่","🥚"],["苹果","píng guǒ","23","แอปเปิล","🍎"],["香蕉","xiāng jiāo","11","กล้วย","🍌"],
+ ["西瓜","xī guā","11","แตงโม","🍉"],["面包","miàn bāo","41","ขนมปัง","🍞"],["糖","táng","2","ลูกอม","🍬"],["肉","ròu","4","เนื้อ","🍖"],["菜","cài","4","ผัก","🥬"],
+ // 6 ของใช้
+ ["球","qiú","2","ลูกบอล","⚽"],["车车","chē che","15","รถ","🚗"],["书","shū","1","หนังสือ","📖"],["鞋","xié","2","รองเท้า","👟"],["衣服","yī fu","15","เสื้อผ้า","👕"],
+ ["帽子","mào zi","45","หมวก","🧢"],["杯子","bēi zi","15","แก้ว","🥛"],["床","chuáng","2","เตียง","🛏️"],["门","mén","2","ประตู","🚪"],["灯","dēng","1","ไฟ / โคมไฟ","💡"],
+ // 7 ท่าทาง
+ ["走","zǒu","3","เดิน","🚶"],["跑","pǎo","3","วิ่ง","🏃"],["坐","zuò","4","นั่ง","🪑"],["来","lái","2","มา","🫱"],["去","qù","4","ไป","➡️"],
+ ["看","kàn","4","ดู","👀"],["玩","wán","2","เล่น","🧸"],["洗手","xǐ shǒu","33","ล้างมือ","🧼"],["拿","ná","2","หยิบ","🤲"],["给","gěi","3","ให้","🎁"],
+ // 8 ความรู้สึก
+ ["好","hǎo","3","ดี","👍"],["不","bù","4","ไม่","❌"],["是","shì","4","ใช่","✅"],["没有","méi yǒu","23","ไม่มี","🤷"],["疼","téng","2","เจ็บ","🤕"],
+ ["怕","pà","4","กลัว","😨"],["哭","kū","1","ร้องไห้","😢"],["笑","xiào","4","หัวเราะ","😄"],["热","rè","4","ร้อน","🥵"],["冷","lěng","3","หนาว","🥶"],
+ // 9 ทักทาย
+ ["你好","nǐ hǎo","33","สวัสดี","😊"],["谢谢","xiè xie","45","ขอบคุณ","🙏"],["再见","zài jiàn","44","ลาก่อน","👋"],["对不起","duì bu qǐ","453","ขอโทษ","🙇"],["我","wǒ","3","ฉัน / หนู","🙋"],
+ ["你","nǐ","3","เธอ","👉"],["他","tā","1","เขา","🧍"],["这个","zhè ge","45","อันนี้","👇"],["那个","nà ge","45","อันนั้น","👆"],["谁","shéi","2","ใคร","❓"],
+ // 10 ตัวเลข·ธรรมชาติ
+ ["一","yī","1","หนึ่ง","1️⃣"],["二","èr","4","สอง","2️⃣"],["三","sān","1","สาม","3️⃣"],["大","dà","4","ใหญ่","🐘"],["小","xiǎo","3","เล็ก","🐭"],
+ ["多","duō","1","เยอะ","📚"],["红色","hóng sè","24","สีแดง","🔴"],["太阳","tài yáng","42","พระอาทิตย์","☀️"],["月亮","yuè liang","45","พระจันทร์","🌙"],["花","huā","1","ดอกไม้","🌸"]
+];
+const WORDS=RAW.map((r,i)=>({h:r[0],p:r[1].split(" ").map((s,j)=>[s,+r[2][j]]),m:r[3],e:r[4],g:Math.floor(i/10)}));
+let curGroup=0;
+const inGroup=()=>WORDS.map((w,i)=>i).filter(i=>WORDS[i].g===curGroup);
+const PHRASES=[
+ {h:"你好",p:[["nǐ",3],["hǎo",3]],m:"สวัสดี (ตัวแรกออกเป็นเสียงขึ้น เพราะเสียง 3 ติดกัน)",e:"👋"},
+ {h:"谢谢",p:[["xiè",4],["xie",5]],m:"ขอบคุณ",e:"🙏"},
+ {h:"再见",p:[["zài",4],["jiàn",4]],m:"ลาก่อน",e:"👋"},
+ {h:"妈妈抱抱",p:[["mā",1],["ma",5],["bào",4],["bao",5]],m:"แม่กอดหน่อย",e:"🤱"},
+ {h:"我要喝水",p:[["wǒ",3],["yào",4],["hē",1],["shuǐ",3]],m:"อยากดื่มน้ำ",e:"💧"},
+ {h:"我饿了",p:[["wǒ",3],["è",4],["le",5]],m:"หิวแล้ว",e:"🍽️"},
+ {h:"我要睡觉",p:[["wǒ",3],["yào",4],["shuì",4],["jiào",4]],m:"จะนอนแล้ว",e:"😴"},
+ {h:"我爱你",p:[["wǒ",3],["ài",4],["nǐ",3]],m:"รักนะ",e:"❤️"}
+];
+const SYLL={
+ ma:{py:["mā","má","mǎ","mà"],hz:["妈","麻","马","骂"],m:["แม่","ป่าน","ม้า","ด่า"]},
+ ba:{py:["bā","bá","bǎ","bà"],hz:["八","拔","把","爸"],m:["แปด","ถอน","จับ","พ่อ"]},
+ yi:{py:["yī","yí","yǐ","yì"],hz:["一","姨","椅","意"],m:["หนึ่ง","น้า","เก้าอี้","ความหมาย"]},
+ tang:{py:["tāng","táng","tǎng","tàng"],hz:["汤","糖","躺","烫"],m:["ซุป","น้ำตาล","นอนเอน","ร้อนลวก"]}
+};
+
+/* ---------- speech ---------- */
+let zhVoice=null;
+function pickVoice(){
+  const vs=speechSynthesis.getVoices();
+  zhVoice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null;
+  if(vs.length) document.getElementById("voiceWarn").hidden=!!zhVoice;
+}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+else document.getElementById("voiceWarn").hidden=false;
+const rateEl=document.getElementById("rate");
+function say(text,rate){
+  return new Promise(res=>{
+    if(!("speechSynthesis" in window)) return res();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="zh-CN"; if(zhVoice) u.voice=zhVoice;
+    u.rate=rate||parseFloat(rateEl.value);
+    let done=false;const fin=()=>{if(!done){done=true;res();}};
+    u.onend=fin;u.onerror=fin;
+    setTimeout(fin,6000+text.length*900);
+    speechSynthesis.speak(u);
+  });
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function stopAll(){ if("speechSynthesis" in window) speechSynthesis.cancel(); }
+
+/* ---------- storage ---------- */
+let stars={};
+try{stars=JSON.parse(localStorage.getItem("baby-zh-stars")||"{}")}catch(e){stars={}}
+function saveStars(){try{localStorage.setItem("baby-zh-stars",JSON.stringify(stars))}catch(e){}}
+
+/* ---------- display helpers ---------- */
+function renderHan(el,item){
+  const chars=[...item.h];
+  el.innerHTML=chars.map((c,i)=>`<span class="s tone${(item.p[i]||["",5])[1]}">${c}</span>`).join("");
+}
+function renderPy(el,item){el.innerHTML=item.p.map(([s,t])=>`<span class="tone${t}">${s}</span>`).join("");}
+function contourPath(t,w,h,pad){
+  const pts=CONTOUR[t];const n=pts.length;
+  return pts.map((v,i)=>{const x=pad+(w-2*pad)*(i/(n-1));const y=pad+(h-2*pad)*(1-(v-1)/4);return (i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)}).join(" ");
+}
+function miniSvg(t){return `<svg viewBox="0 0 70 40"><path d="${contourPath(t,70,40,6)}" fill="none" stroke="var(--t${t})" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
+
+document.getElementById("showPy").addEventListener("change",e=>document.body.classList.toggle("nopy",!e.target.checked));
+document.getElementById("showColor").addEventListener("change",e=>document.body.classList.toggle("nocolor",!e.target.checked));
+document.body.classList.add("nopy");
+
+/* ---------- tabs ---------- */
+document.querySelectorAll("nav.stages button").forEach(b=>b.addEventListener("click",()=>{
+  stopAll();listening=false;
+  document.querySelectorAll("nav.stages button").forEach(x=>x.setAttribute("aria-selected",x===b));
+  for(let i=0;i<4;i++) document.getElementById("p"+i).hidden=(i!=b.dataset.s);
+  try{localStorage.setItem("baby-zh-tab",b.dataset.s)}catch(e){}
+}));
+
+/* ---------- stage 1: listen loop ---------- */
+let listening=false,loops=0;
+function showListen(w){
+  const pic=document.getElementById("lPic");pic.textContent=w.e;pic.classList.remove("pop");void pic.offsetWidth;pic.classList.add("pop");
+  renderHan(document.getElementById("lHan"),w);renderPy(document.getElementById("lPy"),w);
+  document.getElementById("lMean").textContent=w.m;
+}
+showListen(WORDS[0]);
+document.getElementById("lPlay").onclick=async()=>{
+  if(listening) return; listening=true;
+  while(listening){
+    for(const w of inGroup().map(i=>WORDS[i])){
+      if(!listening) break;
+      showListen(w);
+      await say(w.h); if(!listening) break;
+      await wait(900); if(!listening) break;
+      await say(w.h); await wait(1400);
+    }
+    if(listening){loops++;document.getElementById("lCount").textContent=`ฟังแล้ว ${loops} รอบ`;}
+  }
+};
+document.getElementById("lStop").onclick=()=>{listening=false;stopAll();};
+
+/* ---------- stage 2: tones ---------- */
+let curSet="ma";
+function renderToneRow(){
+  const s=SYLL[curSet];
+  document.getElementById("toneRow").innerHTML=[1,2,3,4].map(t=>
+    `<button class="tonebtn" data-t="${t}"><span class="hz tone${t}">${s.hz[t-1]}</span>${miniSvg(t)}<span class="tone${t}" style="font-family:var(--f-mono)">${s.py[t-1]}</span><small>${s.m[t-1]}</small></button>`).join("");
+  document.querySelectorAll("#toneRow .tonebtn").forEach(b=>b.onclick=()=>{
+    const t=+b.dataset.t;drawBig(t);say(s.hz[t-1]);
+    document.getElementById("toneNote").textContent=`${TONE_NAME[t]} · ระดับเสียง ${CONTOUR[t].join("")}`;
+  });
+}
+function drawBig(t){
+  const g=document.getElementById("bigContour");let grid="";
+  for(let v=1;v<=5;v++){const y=12+(96)*(1-(v-1)/4);grid+=`<line x1="30" x2="250" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1"/><text x="14" y="${y+4}" font-size="11" fill="var(--muted)" font-family="IBM Plex Mono,monospace">${v}</text>`;}
+  const pts=CONTOUR[t],n=pts.length;
+  const d=pts.map((v,i)=>{const x=40+200*(i/(n-1));const y=12+96*(1-(v-1)/4);return (i?"L":"M")+x+" "+y}).join(" ");
+  g.innerHTML=grid+`<path d="${d}" fill="none" stroke="var(--t${t})" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+document.getElementById("syllSets").innerHTML=Object.keys(SYLL).map(k=>`<button class="btn" data-k="${k}">${k}</button>`).join("");
+document.querySelectorAll("#syllSets .btn").forEach(b=>b.onclick=()=>{curSet=b.dataset.k;markSet();renderToneRow();drawBig(1);});
+function markSet(){document.querySelectorAll("#syllSets .btn").forEach(b=>b.classList.toggle("primary",b.dataset.k===curSet));}
+markSet();renderToneRow();drawBig(1);
+
+let q={set:null,t:0,answered:false},qR=0,qN=0;
+function newToneQ(){
+  const keys=Object.keys(SYLL);q={set:keys[Math.floor(Math.random()*keys.length)],t:1+Math.floor(Math.random()*4),answered:false};
+  document.getElementById("qTones").innerHTML=[1,2,3,4].map(t=>`<button class="tonebtn" data-t="${t}">${miniSvg(t)}<small>${TONE_NAME[t]}</small></button>`).join("");
+  document.getElementById("qFb").textContent="";document.getElementById("qFb").className="feedback";
+  document.querySelectorAll("#qTones .tonebtn").forEach(b=>b.onclick=()=>{
+    if(q.answered) return;q.answered=true;qN++;
+    const t=+b.dataset.t,ok=t===q.t;if(ok)qR++;
+    b.classList.add(ok?"right":"wrong");
+    if(!ok) document.querySelector(`#qTones .tonebtn[data-t="${q.t}"]`).classList.add("right");
+    const s=SYLL[q.set];const fb=document.getElementById("qFb");
+    fb.textContent=(ok?"ถูกต้อง ":"ยังไม่ใช่ ")+`${s.hz[q.t-1]} ${s.py[q.t-1]} = ${s.m[q.t-1]}`;fb.className="feedback "+(ok?"ok":"no");
+    document.getElementById("qScore").textContent=`ถูก ${qR} / ${qN}`;
+  });
+}
+newToneQ();
+document.getElementById("qPlay").onclick=()=>say(SYLL[q.set].hz[q.t-1]);
+document.getElementById("qNext").onclick=()=>{newToneQ();say(SYLL[q.set].hz[q.t-1]);};
+
+/* ---------- echo (shared) ---------- */
+let echoBusy=false;
+async function echo(text,stepsId){
+  if(echoBusy) return;echoBusy=true;
+  const sp=document.querySelectorAll(`#${stepsId} span`);
+  const mark=i=>sp.forEach((s,j)=>s.classList.toggle("now",i===j));
+  mark(0);await say(text);
+  mark(1);await wait(900+[...text].length*650);
+  mark(2);await say(text);
+  mark(-1);echoBusy=false;
+}
+
+/* ---------- stage 3: words ---------- */
+let curW=0;
+function showWord(i){
+  curW=i;const w=WORDS[i];
+  const pic=document.getElementById("wPic");pic.textContent=w.e;pic.classList.remove("pop");void pic.offsetWidth;pic.classList.add("pop");
+  renderHan(document.getElementById("wHan"),w);renderPy(document.getElementById("wPy"),w);
+  document.getElementById("wMean").textContent=w.m;
+  document.querySelectorAll("#wGrid .tile").forEach(t=>t.classList.toggle("on",+t.dataset.i===i));
+}
+function renderGroups(){
+  document.querySelectorAll(".groups").forEach(r=>{
+    r.innerHTML=GROUPS.map((g,i)=>`<button class="btn${i===curGroup?" primary":""}" data-g="${i}">${i+1}. ${g}</button>`).join("");
+    r.querySelectorAll(".btn").forEach(b=>b.onclick=()=>{
+      curGroup=+b.dataset.g;listening=false;stopAll();
+      try{localStorage.setItem("baby-zh-group",curGroup)}catch(e){}
+      renderGroups();renderGrid();showWord(inGroup()[0]);showListen(WORDS[inGroup()[0]]);newPicQ();
+    });
+  });
+}
+function renderGrid(){
+  const done=WORDS.filter(w=>(stars[w.h]||0)>0).length;
+  document.getElementById("wProg").textContent=`พูดได้แล้ว ${done} / 100 คำ`;
+  document.getElementById("wGrid").innerHTML=WORDS.map((w,i)=>w.g!==curGroup?"":`<button class="tile" data-i="${i}"><span class="e">${w.e}</span><span class="h">${w.h}</span><span class="stars">${"★".repeat(Math.min(stars[w.h]||0,3))}</span></button>`).join("");
+  document.querySelectorAll("#wGrid .tile").forEach(t=>t.onclick=()=>{showWord(+t.dataset.i);say(WORDS[+t.dataset.i].h);});
+}
+try{const g=+localStorage.getItem("baby-zh-group");if(g>=0&&g<10)curGroup=g;}catch(e){}
+renderGrid();showWord(inGroup()[0]);
+document.getElementById("wHear").onclick=()=>say(WORDS[curW].h);
+document.getElementById("wEcho").onclick=()=>echo(WORDS[curW].h,"echoSteps");
+document.getElementById("wStar").onclick=()=>{
+  const h=WORDS[curW].h;stars[h]=Math.min((stars[h]||0)+1,3);saveStars();renderGrid();
+  const gi=inGroup();showWord(gi[(gi.indexOf(curW)+1)%gi.length]);
+};
+
+let pq={i:0,answered:false},pR=0,pN=0;
+function newPicQ(){
+  const idx=inGroup().sort(()=>Math.random()-.5).slice(0,4);
+  pq={i:idx[Math.floor(Math.random()*4)],answered:false};
+  document.getElementById("pChoices").innerHTML=idx.map(i=>`<button class="tile" data-i="${i}"><span class="e">${WORDS[i].e}</span><span class="mean">${WORDS[i].m}</span></button>`).join("");
+  const fb=document.getElementById("pFb");fb.textContent="";fb.className="feedback";
+  document.querySelectorAll("#pChoices .tile").forEach(b=>b.onclick=()=>{
+    if(pq.answered) return;pq.answered=true;pN++;
+    const ok=+b.dataset.i===pq.i;if(ok)pR++;
+    const w=WORDS[pq.i];fb.textContent=(ok?"ถูกต้อง ":"ยังไม่ใช่ คำตอบคือ ")+`${w.h} = ${w.m}`;fb.className="feedback "+(ok?"ok":"no");
+    document.querySelector(`#pChoices .tile[data-i="${pq.i}"]`).classList.add("on");
+    document.getElementById("pScore").textContent=`ถูก ${pR} / ${pN}`;
+  });
+}
+newPicQ();
+document.getElementById("pPlay").onclick=()=>say(WORDS[pq.i].h);
+document.getElementById("pNext").onclick=()=>{newPicQ();say(WORDS[pq.i].h);};
+
+/* ---------- stage 4: phrases ---------- */
+let curF=0;
+function showPhrase(i){
+  curF=i;const f=PHRASES[i];
+  const pic=document.getElementById("fPic");pic.textContent=f.e;pic.classList.remove("pop");void pic.offsetWidth;pic.classList.add("pop");
+  renderHan(document.getElementById("fHan"),f);renderPy(document.getElementById("fPy"),f);
+  document.getElementById("fMean").textContent=f.m;
+  document.querySelectorAll("#fList button").forEach((b,j)=>b.classList.toggle("on",j===i));
+}
+document.getElementById("fList").innerHTML=PHRASES.map((f,i)=>`<button data-i="${i}"><span class="ph">${f.h}</span><span class="pm">${f.m}</span></button>`).join("");
+document.querySelectorAll("#fList button").forEach(b=>b.onclick=()=>{showPhrase(+b.dataset.i);say(PHRASES[+b.dataset.i].h);});
+showPhrase(0);
+document.getElementById("fHear").onclick=()=>say(PHRASES[curF].h);
+document.getElementById("fEcho").onclick=()=>echo(PHRASES[curF].h,"echoSteps2");
+
+/* ---------- microphone check ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function clean(t){return t.replace(/[0-9]/g,d=>({"1":"一","2":"二","3":"三"})[d]||d).replace(/[\s，。！？、,.!?～~]/g,"");}
+function toPy(t){
+  if(!window.pinyinPro) return null;
+  return pinyinPro.pinyin(t,{toneType:"num",type:"array"}).map(s=>s.toLowerCase());
+}
+function sylMatch(a,b,withTone){
+  const ba=a.replace(/[0-5]$/,""),bb=b.replace(/[0-5]$/,"");
+  if(ba!==bb) return false;
+  if(!withTone) return true;
+  const ta=a.slice(-1),tb=b.slice(-1);
+  return ta===tb||/[05]/.test(ta)||/[05]/.test(tb)||!/\d/.test(ta)||!/\d/.test(tb);
+}
+function judge(target,alts){
+  const tp=toPy(target);let best={lvl:0,heard:alts[0]||""};
+  for(const raw of alts){
+    const a=clean(raw);if(!a) continue;
+    if(a===target||a.includes(target)) return {lvl:3,heard:a};
+    if(tp){
+      const ap=toPy(a);
+      // look for the target syllables anywhere in what was heard
+      for(let k=0;k+tp.length<=ap.length;k++){
+        const seg=ap.slice(k,k+tp.length);
+        if(seg.every((s,i)=>sylMatch(s,tp[i],true))) return {lvl:3,heard:a};
+        if(seg.every((s,i)=>sylMatch(s,tp[i],false))&&best.lvl<2) best={lvl:2,heard:a};
+      }
+    }
+    if(best.lvl<1) best={lvl:1,heard:a};
+  }
+  return best;
+}
+let recActive=null;
+function listenCheck(getItem,btn,fb,onOk){
+  if(!SR){fb.className="micfb no";fb.innerHTML="<b>เบราว์เซอร์นี้ฟังเสียงไม่ได้</b> ใช้ Chrome บน Android/คอมพิวเตอร์ หรือ Safari บน iPhone";return;}
+  if(recActive){recActive.abort();return;}
+  stopAll();
+  const item=getItem(),rec=new SR();
+  rec.lang="zh-CN";rec.interimResults=false;rec.maxAlternatives=5;rec.continuous=false;
+  recActive=rec;btn.classList.add("rec");btn.textContent="● กำลังฟัง… พูดเลย";
+  fb.className="micfb";fb.textContent="";
+  let got=false;
+  rec.onresult=e=>{
+    got=true;
+    const alts=[...e.results[0]].map(r=>r.transcript);
+    const r=judge(item.h,alts);
+    const py=item.p.map(x=>x[0]).join(" ");
+    if(r.lvl===3){fb.className="micfb ok";fb.innerHTML=`<b>ถูกต้อง!</b> ได้ยินว่า <span class="heard">${r.heard}</span>`;onOk&&onOk();}
+    else if(r.lvl===2){fb.className="micfb near";fb.innerHTML=`<b>ใกล้แล้ว วรรณยุกต์ยังไม่ตรง</b> ได้ยินว่า <span class="heard">${r.heard}</span> · ที่ถูกคือ ${py} กด 🔊 ฟังเส้นเสียงอีกครั้ง`;}
+    else{fb.className="micfb no";fb.innerHTML=`<b>ยังไม่ตรง</b> ได้ยินว่า <span class="heard">${r.heard||"-"}</span> · ลองพูดช้าๆ ชัดๆ ว่า ${py}`;}
+  };
+  rec.onerror=e=>{
+    got=true;fb.className="micfb no";
+    const msg={"not-allowed":"<b>ใช้ไมค์ไม่ได้</b> ถ้าเปิดในหน้า Claude ไมค์จะถูกปิดไว้ ให้เปิดแอปจากเว็บของคุณเอง แล้วกดอนุญาตไมค์",
+      "service-not-allowed":"<b>ใช้ไมค์ไม่ได้</b> ถ้าเปิดในหน้า Claude ไมค์จะถูกปิดไว้ ให้เปิดแอปจากเว็บของคุณเอง แล้วกดอนุญาตไมค์",
+      "no-speech":"<b>ไม่ได้ยินเสียง</b> กดแล้วพูดทันที ใกล้ไมค์ขึ้นอีกนิด",
+      "network":"<b>ต่อระบบฟังเสียงไม่ได้</b> ต้องต่ออินเทอร์เน็ต",
+      "aborted":""}[e.error];
+    fb.innerHTML=msg??`<b>เกิดข้อผิดพลาด</b> (${e.error})`;
+  };
+  rec.onend=()=>{recActive=null;btn.classList.remove("rec");btn.textContent="🎤 พูดแล้วตรวจ";
+    if(!got){fb.className="micfb no";fb.innerHTML="<b>ไม่ได้ยินเสียง</b> ลองอีกครั้ง";}};
+  try{rec.start();}catch(err){recActive=null;btn.classList.remove("rec");btn.textContent="🎤 พูดแล้วตรวจ";fb.className="micfb no";fb.innerHTML="<b>เปิดไมค์ไม่ได้</b> ให้เปิดแอปจากเว็บของคุณเอง";}
+}
+document.getElementById("wMic").onclick=e=>listenCheck(()=>WORDS[curW],e.currentTarget,document.getElementById("wMicFb"),()=>{
+  const h=WORDS[curW].h;stars[h]=Math.min((stars[h]||0)+1,3);saveStars();const keep=curW;renderGrid();showWord(keep);
+});
+document.getElementById("fMic").onclick=e=>listenCheck(()=>PHRASES[curF],e.currentTarget,document.getElementById("fMicFb"));
+const _sw=showWord;showWord=function(i){_sw(i);const f=document.getElementById("wMicFb");if(f){f.textContent="";f.className="micfb";}};
+const _sp=showPhrase;showPhrase=function(i){_sp(i);const f=document.getElementById("fMicFb");if(f){f.textContent="";f.className="micfb";}};
+
+renderGroups();showListen(WORDS[inGroup()[0]]);
+try{const t=localStorage.getItem("baby-zh-tab");if(t&&t!=="0")document.querySelector(`nav.stages button[data-s="${t}"]`).click();}catch(e){}
+</script>
+</body>
+</html>
